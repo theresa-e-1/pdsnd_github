@@ -49,9 +49,9 @@ def get_filters():
 
         while input_month_valid == False:
             month = input('\nWe will make sure to filter by month. Which month?\nJanuary, February, March, April, May or June?\n')
-            valid_month = ['January', 'February', 'March', 'April', 'May', 'June']
+            valid_months = ['January', 'February', 'March', 'April', 'May', 'June']
 
-            if month not in valid_month:
+            if month not in valid_months:
                 print('\n{} is invalid input. Please try again.\n'.format(month))
             else:
                 input_month_valid = True
@@ -64,9 +64,9 @@ def get_filters():
 
         while input_day_valid == False:
             day = input('\nWe will make sure to filter by day. Which day?\nMonday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday?\n')
-            valid_day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+            valid_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
-            if day not in valid_day:
+            if day not in valid_days:
                 print('\n{} is invalid input. Please try again.\n'.format(day))
             else:
                 input_day_valid = True
@@ -77,9 +77,9 @@ def get_filters():
 
         while input_month_valid == False:
             month = input('\nWe will make sure to filter by month. Which month?\nJanuary, February, March, April, May or June ?\n')
-            valid_month = ['January', 'February', 'March', 'April', 'May', 'June']
+            valid_months = ['January', 'February', 'March', 'April', 'May', 'June']
 
-            if month not in valid_month:
+            if month not in valid_months:
                 print('\n{} is invalid input. Please try again.\n'.format(month))
             else:
                 input_month_valid = True
@@ -89,9 +89,9 @@ def get_filters():
 
         while input_day_valid == False:
             day = input('\nWe will make sure to filter by day. Which day?\nMonday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday?\n')
-            valid_day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+            valid_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
-            if day not in valid_day:
+            if day not in valid_days:
                 print('\n{} is invalid input. Please try again.\n'.format(day))
             else:
                 input_day_valid = True
@@ -141,7 +141,7 @@ def load_data(city, month, day):
     if day != 'all':
         # filter by day of week to create the new dataframe
         df = df[df['day_of_week'] == day]
-    
+
 
     return df
 
@@ -155,20 +155,20 @@ def time_stats(df):
     # display the most common month
     popular_month = df['month'].mode()[0]
     print('The most popular month is: {}'.format(popular_month))
-    
-  
-   
+
+
+
     # display the most common day of week
     popular_weekday = df['day_of_week'].mode()[0]
     print('The most popular weekday is on a: {}'.format(popular_weekday))
-    
-    
+
+
     # display the most common start hour
     df['hour'] = df['Start Time'].dt.hour
     popular_hour = df['hour'].mode()[0]
     print('The most popular hour is at: {} o\'clock'.format(popular_hour))
-    
-    
+
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*60)
 
@@ -182,16 +182,16 @@ def station_stats(df):
     # display most commonly used start station
     popular_start_station = df['Start Station'].mode()[0]
     print('\nThe most commonly start station is:\n{}'.format(popular_start_station))
-    
-   
+
+
     # display most commonly used end station
     popular_end_station = df['End Station'].mode()[0]
     print('\nThe most commonly end station is:\n{}'.format(popular_end_station))
-    
+
     # display most frequent combination of start station and end station trip
     popular_combination = df.groupby(['Start Station', 'End Station']).size().idxmax()
     print('\nThe most frequent combination of start station and end station trip is:\n{}'.format(popular_combination))
-    
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*60)
 
@@ -205,8 +205,8 @@ def trip_duration_stats(df):
     # display total travel time
     total_travel_time = df['Trip Duration'].sum()
     print('\nTotal travel time:\n{}'.format(str(datetime.timedelta(seconds = total_travel_time))))
-    
-    
+
+
     # display mean travel time
     mean_travel_time = df['Trip Duration'].mean()
     print('\nThe mean travel time is:\n{}'.format(str(datetime.timedelta(seconds=mean_travel_time))))
@@ -217,10 +217,10 @@ def trip_duration_stats(df):
 
 def user_stats(df):
     """Displays statistics on bikeshare users."""
-    
+
     print('\nCalculating User Stats...\n')
     start_time = time.time()
-    
+
     try:
         #Display counts of user types
         count_user_types = df['User Type'].value_counts()
@@ -229,38 +229,38 @@ def user_stats(df):
         # Display counts of gender
         count_gender =  df['Gender'].value_counts()
         print('\nThe genders are:\n{}'.format(count_gender))
-    
+
         # Display earliest, most recent, and most common year of birth
         earliest_year_birth = df['Birth Year'].min()
         print('\nThe earliest birth year is:\n{}'.format(int(earliest_year_birth)))
-    
+
         most_recent_year_birth = df['Birth Year'].max()
         print('\nThe most recent birth year is:\n{}'.format(int(most_recent_year_birth)))
-    
+
         most_common_year_birth = df['Birth Year'].mode()[0]
         print('\nThe most commmon birth year is:\n{}'.format(int(most_common_year_birth)))
-      
+
     except KeyError:
         print('\nThis dataset does not have Gender and Birth Year infromation. No stats possible.')
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*60)
-    
+
 def display_data(df):
      """Displays data 5 rows at a time"""
-    
+
      view_data = input('\nWould you like to view 5 rows of individual trip data? Enter yes or no\n')
      start_loc = 0
      while (view_data == 'yes'):
         print(df.iloc[start_loc: (start_loc +5)])
         start_loc += 5
         view_data = input("Do you wish to continue?: ").lower()
-    
+
 def main():
     while True:
         city, month, day = get_filters()
         df = load_data(city, month, day)
-        
+
         time_stats(df)
         station_stats(df)
         trip_duration_stats(df)
@@ -275,4 +275,3 @@ def main():
 
 if __name__ == "__main__":
 	main()
-
