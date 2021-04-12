@@ -49,9 +49,9 @@ def get_filters():
 
         while input_month_valid == False:
             month = input('\nWe will make sure to filter by month. Which month?\nJanuary, February, March, April, May or June?\n')
-            valid_month = ['January', 'February', 'March', 'April', 'May', 'June']
+            valid_months = ['January', 'February', 'March', 'April', 'May', 'June']
 
-            if month not in valid_month:
+            if month not in valid_months:
                 print('\n{} is invalid input. Please try again.\n'.format(month))
             else:
                 input_month_valid = True
@@ -64,9 +64,9 @@ def get_filters():
 
         while input_day_valid == False:
             day = input('\nWe will make sure to filter by day. Which day?\nMonday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday?\n')
-            valid_day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+            valid_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
-            if day not in valid_day:
+            if day not in valid_days:
                 print('\n{} is invalid input. Please try again.\n'.format(day))
             else:
                 input_day_valid = True
@@ -77,9 +77,9 @@ def get_filters():
 
         while input_month_valid == False:
             month = input('\nWe will make sure to filter by month. Which month?\nJanuary, February, March, April, May or June ?\n')
-            valid_month = ['January', 'February', 'March', 'April', 'May', 'June']
+            valid_months = ['January', 'February', 'March', 'April', 'May', 'June']
 
-            if month not in valid_month:
+            if month not in valid_months:
                 print('\n{} is invalid input. Please try again.\n'.format(month))
             else:
                 input_month_valid = True
@@ -89,9 +89,9 @@ def get_filters():
 
         while input_day_valid == False:
             day = input('\nWe will make sure to filter by day. Which day?\nMonday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday?\n')
-            valid_day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+            valid_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
-            if day not in valid_day:
+            if day not in valid_days:
                 print('\n{} is invalid input. Please try again.\n'.format(day))
             else:
                 input_day_valid = True
@@ -189,8 +189,9 @@ def station_stats(df):
     print('\nThe most commonly end station is:\n{}'.format(popular_end_station))
 
     # display most frequent combination of start station and end station trip
-    popular_combination = df.groupby(['Start Station', 'End Station']).size().idxmax()
-    print('\nThe most frequent combination of start station and end station trip is:\n{}'.format(popular_combination))
+    popular_combination_station = df.groupby(['Start Station', 'End Station']).size().idxmax()
+    print('\nThe most frequent combination of start station and end station trip is:\n{}'.format(popular_combination_station))
+
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*60)
@@ -247,6 +248,7 @@ def user_stats(df):
     print('-'*60)
 
 def display_data(df):
+
      """Displays data 5 rows at a time. Displays 5 more rows upon request. """
 
      view_data = input('\nWould you like to view 5 rows of individual trip data? Enter yes or no\n')
